@@ -1,14 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Contracts" />
-      <Folder Include="Features" />
-    </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Contracts" />
+		<Folder Include="Features" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Ensure.That" Version="10.1.0" />
+		<PackageReference Include="FluentValidation" Version="11.5.2" />
+		<PackageReference Include="MediatR" Version="12.0.1" />
+		<PackageReference Include="Moq" Version="4.18.4" />
+	</ItemGroup>
 
 </Project>

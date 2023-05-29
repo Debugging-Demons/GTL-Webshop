@@ -23,7 +23,6 @@ namespace Webshop.Order.Api {
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
