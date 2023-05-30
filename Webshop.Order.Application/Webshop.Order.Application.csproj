@@ -8,7 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Contracts" />
 		<Folder Include="Features" />
 	</ItemGroup>
 
@@ -17,6 +16,10 @@
 		<PackageReference Include="FluentValidation" Version="11.5.2" />
 		<PackageReference Include="MediatR" Version="12.0.1" />
 		<PackageReference Include="Moq" Version="4.18.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Webshop.Order.Domain\Webshop.Order.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

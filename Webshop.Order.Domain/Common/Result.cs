@@ -5,14 +5,14 @@ namespace Webshop.Order.Domain.Common
     public class Result
     {
         public bool Success { get; private set; }
-        public Error Error { get; private set; }
+        public Error? Error { get; private set; }
 
         public bool Failure
         {
             get { return !Success; }
         }
 
-        protected Result(bool success, Error error)
+        protected Result(bool success, Error? error)
         {
             Success = success;
             Error = error;
@@ -52,11 +52,11 @@ namespace Webshop.Order.Domain.Common
     }
 
 
-    public sealed class Result<T> : Result
+    public class Result<T> : Result
     {
-        private T _value;
+        private T? _value;
 
-        public T Value
+        public T? Value
         {
             get
             {
@@ -68,12 +68,12 @@ namespace Webshop.Order.Domain.Common
             private set { _value = value; }
         }
 
-        protected internal Result(T value, bool success, Error error)
+        protected internal Result(T? value, bool success, Error? error)
             : base(success, error)
         {
-            if (value == null && success) throw new InvalidOperationException("Pass a value if result is successful");
+            if (value is null && success) throw new InvalidOperationException("Pass a value if result is successful");
 
-            Value = value;
+            _value = value;
         }
 
         public static implicit operator Result<T>(T from)
@@ -83,7 +83,7 @@ namespace Webshop.Order.Domain.Common
 
         public static implicit operator T(Result<T> from)
         {
-            return from.Value;
+            return from.Value!;
         }
     }
 }

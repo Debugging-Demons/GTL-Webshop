@@ -5,7 +5,7 @@ using Webshop.Order.Domain.ValueObjects;
 
 namespace Webshop.Order.Domain.AggregateRoots;
 
-public sealed class Order : AggregateRoot
+public sealed class PurchaseOrder : AggregateRoot
 {
     public DateTime OrderDate { get; set; }
 
@@ -17,15 +17,20 @@ public sealed class Order : AggregateRoot
 
     public List<OrderItem> OrderLines { get; set; }
 
-    public Order(Guid id, Guid buyerId, Address address, Discount discount)
+    public PurchaseOrder(Guid id, Guid buyerId, Address address, Discount discount)
     {
         Ensure.Guid.IsNotEmpty(id, nameof(id));
-        Ensure.Guid.IsNotEmpty(BuyerId, nameof(BuyerId));
+        Ensure.Guid.IsNotEmpty(buyerId, nameof(buyerId));
 
         Id = id;
         BuyerId = buyerId;
         Address = address;
         Discount = discount;
         OrderLines = new List<OrderItem>();
+    }
+
+    public void AddItem(OrderItem item)
+    {
+        OrderLines.Add(item);
     }
 }
