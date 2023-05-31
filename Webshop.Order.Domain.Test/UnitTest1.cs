@@ -46,7 +46,7 @@ namespace Webshop.Order.Domain.Test
             sut.AddItem(item);
 
             // Assert 
-            Assert.Single(sut.OrderLines);
+            Assert.Single(sut.OrderItems);
         }
     }
 }

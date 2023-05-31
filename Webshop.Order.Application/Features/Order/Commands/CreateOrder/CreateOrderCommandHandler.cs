@@ -5,7 +5,7 @@ using Webshop.Order.Domain.Common;
 
 namespace Webshop.Order.Application.Features.Order.Commands.CreateOrder;
 
-public class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand>
+public class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand, Guid>
 {
     private ILogger<CreateOrderCommand> _logger;
     private IOrderRepository _repository;
@@ -15,10 +15,10 @@ public class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand>
         _repository = repository;
     }
 
-    public async Task<Result> Handle(CreateOrderCommand command, CancellationToken cancellationToken = default)
+    public async Task<Result<Guid>> Handle(CreateOrderCommand command, CancellationToken cancellationToken = default)
     {
         PurchaseOrder newOrder = new PurchaseOrder(command.BuyerId, command.Address, command.Discount);
-        await _repository.CreateAsync(newOrder);
-        return Result.Ok();
+        Guid resId = await _repository.CreateAsync(newOrder);
+        return Result.Ok(resId);
     }
 }

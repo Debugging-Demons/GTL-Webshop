@@ -1,6 +1,10 @@
 using MediatR;
-using Microsoft.AspNetCore.Components;
+using Webshop.Order.Application;
 using Webshop.Order.Application.Contracts;
+using Webshop.Order.Persistence;
+using AutoMapper;
+using System.Reflection;
+using Webshop.Order.Application.Mapper;
 
 namespace Webshop.Order.Api;
 
@@ -16,7 +20,14 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddScoped<IDispatcher>(sp => new Dispatcher(sp.GetService<IMediator>()));
+
+        // my services
+        builder.Services.AddSingleton<Container, Container>();
+        builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+        builder.Services.AddScoped<DataContext, DataContext>();
+        builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Dispatcher).Assembly));
+        builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+        builder.Services.AddScoped<IDispatcher>(sp => new Dispatcher(sp.GetService<IMediator>()!));
 
         var app = builder.Build();
 

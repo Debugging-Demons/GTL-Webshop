@@ -15,7 +15,7 @@ public sealed class PurchaseOrder : AggregateRoot
 
     public Discount Discount { get; set; }
 
-    public List<OrderItem> OrderLines { get; set; }
+    public List<OrderItem> OrderItems { get; set; }
 
     public PurchaseOrder(Guid buyerId, Address address, Discount discount)
     {
@@ -24,11 +24,11 @@ public sealed class PurchaseOrder : AggregateRoot
         BuyerId = buyerId;
         Address = address;
         Discount = discount;
-        OrderLines = new List<OrderItem>();
+        OrderItems = new List<OrderItem>();
     }
 
     public void AddItem(OrderItem item)
     {
-        OrderLines.Add(item);
+        OrderItems.Add(item);
     }
 }

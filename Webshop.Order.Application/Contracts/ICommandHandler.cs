@@ -3,8 +3,8 @@ using Webshop.Order.Domain.Common;
 
 namespace Webshop.Order.Application.Contracts;
 
-public interface ICommandHandler<TCommand>
-   : IRequestHandler<TCommand, Result> where TCommand : ICommand
+public interface ICommandHandler<TCommand, TResult>
+   : IRequestHandler<TCommand, Result<TResult>> where TCommand : ICommand<TResult>
 {
-    new Task<Result> Handle(TCommand command, CancellationToken cancellationToken = default);
+    new Task<Result<TResult>> Handle(TCommand command, CancellationToken cancellationToken = default);
 }

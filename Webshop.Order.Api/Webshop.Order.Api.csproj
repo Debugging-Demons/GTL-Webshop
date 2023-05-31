@@ -8,14 +8,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
 		<PackageReference Include="Ensure.That" Version="10.1.0" />
 		<PackageReference Include="MediatR.Extensions.FluentValidation.AspNetCore" Version="4.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Webshop.Order.Application\Webshop.Order.Application.csproj" />
+	  <ProjectReference Include="..\Webshop.Order.Persistence\Webshop.Order.Persistence.csproj" />
 	</ItemGroup>
 
 </Project>

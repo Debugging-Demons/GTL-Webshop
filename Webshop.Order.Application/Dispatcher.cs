@@ -21,7 +21,7 @@ public class Dispatcher : IDispatcher
         return Mediator.Send(query);
     }
 
-    public Task<Result> Dispatch(ICommand command)
+    public Task<Result<T>> Dispatch<T>(ICommand<T> command)
     {
         Ensure.That(command, nameof(command)).IsNotNull();
         return Mediator.Send(command);

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Webshop.Order.Domain.Common;
+﻿using Webshop.Order.Domain.Common;
 
 namespace Webshop.Order.Application.Contracts;
 
 public interface IRepository<T> where T : AggregateRoot
 {
-    Task CreateAsync(T entity);
-    Task DeleteAsync(int id);
-    Task<T> GetById(int id);
+    Task<Guid> CreateAsync(T entity);
+    Task DeleteAsync(Guid id);
+    Task<T> GetById(Guid id);
     Task<IEnumerable<T>> GetAll();
     Task UpdateAsync(T entity);
 }

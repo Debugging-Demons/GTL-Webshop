@@ -1,11 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Webshop.Order.Application.Contracts;
+using Webshop.Order.Domain.AggregateRoots;
 
 namespace Webshop.Order.Persistence;
 
-public class OrderRepository : BaseRepository
+public class OrderRepository : BaseRepository, IOrderRepository
 {
+    private Container _container;
+
+    public OrderRepository(Container container, DataContext dataContext) : base("", dataContext)
+    {
+        _container = container;
+    }
+
+    public Task<Guid> CreateAsync(PurchaseOrder entity)
+    {
+        entity.Id = Guid.NewGuid();
+        _container.PurchaseOrders.Add(entity);
+        return Task.FromResult(entity.Id);
+    }
+
+    public Task DeleteAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<PurchaseOrder>> GetAll()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<PurchaseOrder> GetById(Guid id)
+    {
+        PurchaseOrder? order = _container.PurchaseOrders.Find(x => x.Id == id);
+
+        if (order is null) return Task.FromCanceled<PurchaseOrder>(CancellationToken.None);
+
+        return Task.FromResult(order);
+    }
+
+    public Task UpdateAsync(PurchaseOrder entity)
+    {
+        throw new NotImplementedException();
+    }
 }

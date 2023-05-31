@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Webshop.Order.Application.Contracts;
 using Webshop.Order.Application.Features.Order.Commands.CreateOrder;
+using Webshop.Order.Application.Features.Order.Queries.GetOrder;
 using Webshop.Order.Application.Features.Order.Request;
+using Webshop.Order.Domain.AggregateRoots;
 
 namespace Webshop.Order.Api.Controllers
 {
@@ -33,7 +35,15 @@ namespace Webshop.Order.Api.Controllers
             CreateOrderCommand command = new CreateOrderCommand(request.BuyerId, request.Address, request.Discount);
             var commandResult = await _dispatcher.Dispatch(command);
 
-            return Ok();
+            return Ok(commandResult.Value);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOrder(Guid id)
+        {
+            GetOrderQuery query = new(id);
+            var result = await _dispatcher.Dispatch(query);
+            return result.Success ? Ok(result.Value) : BadRequest(result.Error);
         }
     }
 }
