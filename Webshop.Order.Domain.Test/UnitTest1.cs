@@ -40,7 +40,7 @@ namespace Webshop.Order.Domain.Test
             Address address = new("vejvejsen", "Byborg", "Nordergion", "Land", "9000");
             Discount discount = new(0);
 
-            PurchaseOrder sut = new(Guid.NewGuid(), Guid.NewGuid(), address, discount);
+            PurchaseOrder sut = new(Guid.NewGuid(), address, discount);
 
             // Act
             sut.AddItem(item);
