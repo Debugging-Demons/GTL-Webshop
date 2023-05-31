@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using System.Data;
 
 namespace Webshop.Order.Persistence;
 
@@ -9,8 +11,9 @@ public class DataContext
     public DataContext(IConfiguration configuration)
     {
         _configuration = configuration;
-        _connectionString = _configuration.GetConnectionString("DefaultConnection");
+        _connectionString = _configuration.GetConnectionString("DefaultConnection") ?? "";
     }
+
     public IDbConnection CreateConnection()
-        => new System.Data.SqlClient.SqlConnection(_connectionString);
+        => new SqlConnection(_connectionString);
 }

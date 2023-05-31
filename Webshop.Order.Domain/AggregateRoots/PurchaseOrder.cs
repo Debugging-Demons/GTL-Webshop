@@ -17,12 +17,10 @@ public sealed class PurchaseOrder : AggregateRoot
 
     public List<OrderItem> OrderLines { get; set; }
 
-    public PurchaseOrder(Guid id, Guid buyerId, Address address, Discount discount)
+    public PurchaseOrder(Guid buyerId, Address address, Discount discount)
     {
-        Ensure.Guid.IsNotEmpty(id, nameof(id));
         Ensure.Guid.IsNotEmpty(buyerId, nameof(buyerId));
 
-        Id = id;
         BuyerId = buyerId;
         Address = address;
         Discount = discount;

@@ -37,7 +37,7 @@ namespace Webshop.Order.Domain.Test
             // Arrange
             Price price = new(10, Currency.DKK);
             OrderItem item = new(Guid.NewGuid(), price);
-            Address address = new("s", "s", "s", "s", "s");
+            Address address = new("vejvejsen", "Byborg", "Nordergion", "Land", "9000");
             Discount discount = new(0);
 
             PurchaseOrder sut = new(Guid.NewGuid(), Guid.NewGuid(), address, discount);

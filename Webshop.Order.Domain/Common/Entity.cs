@@ -4,7 +4,6 @@ namespace Webshop.Order.Domain.Common
 {
     public abstract class Entity
     {
-        [Required(DisallowAllDefaultValues = true)]
         public Guid Id { get; protected set; }
         public DateTime LastModified { get; set; }
         public DateTime Created { get; set; }
