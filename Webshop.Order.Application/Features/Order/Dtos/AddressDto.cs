@@ -1,3 +1,6 @@
-﻿namespace Webshop.Order.Application.Features.Order.Dtos;
+﻿using System.Diagnostics.CodeAnalysis;
 
-public record AddressDto(string Street, string City, string State, string Country, string ZipCode);
+namespace Webshop.Order.Application.Features.Order.Dtos;
+
+[ExcludeFromCodeCoverage]
+public sealed record AddressDto(string Street, string City, string State, string Country, string ZipCode);

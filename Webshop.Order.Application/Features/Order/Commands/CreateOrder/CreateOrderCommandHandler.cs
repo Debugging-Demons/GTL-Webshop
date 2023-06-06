@@ -7,9 +7,9 @@ namespace Webshop.Order.Application.Features.Order.Commands.CreateOrder;
 
 public class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand, Guid>
 {
-    private ILogger<CreateOrderCommand> _logger;
+    private ILogger<CreateOrderCommandHandler> _logger;
     private IOrderRepository _repository;
-    public CreateOrderCommandHandler(ILogger<CreateOrderCommand> logger, IOrderRepository repository)
+    public CreateOrderCommandHandler(ILogger<CreateOrderCommandHandler> logger, IOrderRepository repository)
     {
         _logger = logger;
         _repository = repository;
@@ -17,8 +17,7 @@ public class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand, Gui
 
     public async Task<Result<Guid>> Handle(CreateOrderCommand command, CancellationToken cancellationToken = default)
     {
-        PurchaseOrder newOrder = new PurchaseOrder(command.BuyerId, command.Address, command.Discount);
-        Guid resId = await _repository.CreateAsync(newOrder);
+        Guid resId = await _repository.CreateAsync(command.Order);
         return Result.Ok(resId);
     }
 }

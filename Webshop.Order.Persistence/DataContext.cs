@@ -4,7 +4,12 @@ using System.Data;
 
 namespace Webshop.Order.Persistence;
 
-public class DataContext
+public interface IDataContext
+{
+    public IDbConnection CreateConnection();
+}
+
+public class DataContext : IDataContext
 {
     private readonly IConfiguration _configuration;
     private readonly string _connectionString;

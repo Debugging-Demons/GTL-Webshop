@@ -2,12 +2,12 @@
 
 public class BaseRepository
 {
-    public BaseRepository(string tableName, DataContext dataContext)
+    public BaseRepository(string tableName, IDataContext dataContext)
     {
         this.dataContext = dataContext;
         this.TableName = tableName;
     }
 
     protected string TableName { get; private set; }
-    protected DataContext dataContext { get; private set; }
+    protected IDataContext dataContext { get; private set; }
 }

@@ -350,3 +350,5 @@ MigrationBackup/
 .ionide/
 
 data/
+Webshop.Order.Domain.Test/coveragereport/
+Webshop.Order.Domain.Test/testresults/

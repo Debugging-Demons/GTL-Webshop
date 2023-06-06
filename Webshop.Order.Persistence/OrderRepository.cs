@@ -5,9 +5,9 @@ namespace Webshop.Order.Persistence;
 
 public class OrderRepository : BaseRepository, IOrderRepository
 {
-    private Container _container;
+    private Container<PurchaseOrder> _container;
 
-    public OrderRepository(Container container, DataContext dataContext) : base("", dataContext)
+    public OrderRepository(Container<PurchaseOrder> container, IDataContext dataContext) : base("", dataContext)
     {
         _container = container;
     }
@@ -15,7 +15,7 @@ public class OrderRepository : BaseRepository, IOrderRepository
     public Task<Guid> CreateAsync(PurchaseOrder entity)
     {
         entity.Id = Guid.NewGuid();
-        _container.PurchaseOrders.Add(entity);
+        _container.Items.Add(entity);
         return Task.FromResult(entity.Id);
     }
 
@@ -26,12 +26,12 @@ public class OrderRepository : BaseRepository, IOrderRepository
 
     public Task<IEnumerable<PurchaseOrder>> GetAll()
     {
-        throw new NotImplementedException();
+        return Task.FromResult(_container.Items.AsEnumerable());
     }
 
     public Task<PurchaseOrder> GetById(Guid id)
     {
-        PurchaseOrder? order = _container.PurchaseOrders.Find(x => x.Id == id);
+        PurchaseOrder? order = _container.Items.Find(x => x.Id == id);
 
         if (order is null) return Task.FromCanceled<PurchaseOrder>(CancellationToken.None);
 

@@ -2,7 +2,7 @@
 
 namespace Webshop.Order.Persistence;
 
-public class Container
+public class Container<T>
 {
-    internal List<PurchaseOrder> PurchaseOrders = new List<PurchaseOrder>();
+    public List<T> Items = new List<T>();
 }

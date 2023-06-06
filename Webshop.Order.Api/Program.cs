@@ -5,6 +5,7 @@ using Webshop.Order.Persistence;
 using AutoMapper;
 using System.Reflection;
 using Webshop.Order.Application.Mapper;
+using Webshop.Order.Domain.AggregateRoots;
 
 namespace Webshop.Order.Api;
 
@@ -22,9 +23,9 @@ public class Program
         builder.Services.AddSwaggerGen();
 
         // my services
-        builder.Services.AddSingleton<Container, Container>();
+        builder.Services.AddSingleton<Container<PurchaseOrder>, Container<PurchaseOrder>>();
         builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-        builder.Services.AddScoped<DataContext, DataContext>();
+        builder.Services.AddScoped<IDataContext, DataContext>();
         builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Dispatcher).Assembly));
         builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
         builder.Services.AddScoped<IDispatcher>(sp => new Dispatcher(sp.GetService<IMediator>()!));

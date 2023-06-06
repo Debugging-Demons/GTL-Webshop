@@ -1,10 +1,12 @@
 ﻿using EnsureThat;
 using MediatR;
+using System.Diagnostics.CodeAnalysis;
 using Webshop.Order.Application.Contracts;
 using Webshop.Order.Domain.Common;
 
 namespace Webshop.Order.Application;
 
+[ExcludeFromCodeCoverage]
 public class Dispatcher : IDispatcher
 {
     public Dispatcher(IMediator mediator)

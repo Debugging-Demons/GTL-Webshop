@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Webshop.Order.Application.Contracts;
 using Webshop.Order.Application.Features.Order.Commands.CreateOrder;
@@ -11,20 +12,22 @@ namespace Webshop.Order.Api.Controllers
     [Route("api/[controller]")]
     public class OrderController : ControllerBase
     {
-        private IDispatcher _dispatcher;
+        private readonly IDispatcher _dispatcher;
         private readonly ILogger<OrderController> _logger;
+        private readonly IMapper _mapper;
 
-        public OrderController(ILogger<OrderController> logger, IDispatcher dispatcher)
+        public OrderController(ILogger<OrderController> logger, IDispatcher dispatcher, IMapper mapper)
         {
             _dispatcher = dispatcher;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
         {
             // validate 
-            OrderValidator validator = new OrderValidator();
+            OrderValidator validator = new();
             var validationResult = await validator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
@@ -32,7 +35,8 @@ namespace Webshop.Order.Api.Controllers
                 return BadRequest(validationResult.Errors);
             }
 
-            CreateOrderCommand command = new CreateOrderCommand(request.BuyerId, request.Address, request.Discount);
+            PurchaseOrder order = _mapper.Map<PurchaseOrder>(request);
+            CreateOrderCommand command = new(order);
             var commandResult = await _dispatcher.Dispatch(command);
 
             return Ok(commandResult.Value);
