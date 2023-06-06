@@ -28,6 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+            dotnet-version: 8.0.x
       - name: run api
         run: |
           dotnet run --project ${{ github.workspace }}/Webshop.Order.Api/ --launch-profile http
