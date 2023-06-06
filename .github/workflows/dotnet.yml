@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: run api
         run: |
-          dotnet run --project .\Webshop.Order.Api\ --launch-profile http
+          dotnet run --project ${{ github.workspace }}\Webshop.Order.Api\ --launch-profile http
       - name: Install Postman CLI
         run: |
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
