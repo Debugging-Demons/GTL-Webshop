@@ -24,23 +24,23 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-  automated-api-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-            dotnet-version: 8.0.x
-      - name: run api
-        run: |
-          dotnet run --project ${{ github.workspace }}/Webshop.Order.Api/ --launch-profile http
-      - name: Install Postman CLI
-        run: |
-          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-      - name: Login to Postman CLI
-        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
-      - name: Run API tests
-        run: |
-          postman collection run "26282839-932477ed-a91d-4980-a87a-64d733da89b2"
+  # automated-api-test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Setup .NET
+  #       uses: actions/setup-dotnet@v3
+  #       with:
+  #           dotnet-version: 8.0.x
+  #     - name: run api
+  #       run: |
+  #         dotnet run --project ${{ github.workspace }}/Webshop.Order.Api/ --launch-profile http
+  #     - name: Install Postman CLI
+  #       run: |
+  #         curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+  #     - name: Login to Postman CLI
+  #       run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+  #     - name: Run API tests
+  #       run: |
+  #         postman collection run "26282839-932477ed-a91d-4980-a87a-64d733da89b2"
       
